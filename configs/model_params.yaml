@@ -1,0 +1,77 @@
+# HealthML-Toolkit Configuration
+
+# Vision Pipeline Settings
+vision:
+  # Image preprocessing
+  img_size: 256  # Target image dimensions (square)
+  batch_size: 32
+  
+  # Training
+  epochs: 15
+  val_split: 0.2
+  limit_per_class: null  # null = use full dataset, int = limit for testing
+  
+  # Model architecture
+  backbone: "EfficientNetB0"  # EfficientNetB0, EfficientNetV2B0, ResNet50
+  fine_tune_layers: 50  # Number of layers to unfreeze during phase 2
+  
+  # Optimization
+  learning_rate_phase1: 0.001  # Head training
+  learning_rate_phase2: 0.0001  # Fine-tuning
+  patience: 4  # Early stopping patience
+  
+  # Augmentation
+  augmentation:
+    enabled: true
+    horizontal_flip: true
+    rotation_factor: 0.05
+    zoom_factor: 0.1
+    contrast_factor: 0.1
+  
+  # Grad-CAM
+  sample_count: 5
+  overlay_alpha: 0.4
+
+# Data Quality Pipeline
+data_quality:
+  # Default imputation method
+  default_method: "knn"  # mean, mode, knn, mice, hot_deck, cold_deck
+  
+  # KNN parameters
+  knn_neighbors: 5
+  
+  # MICE parameters
+  mice_max_iter: 10
+  mice_random_state: 42
+  
+  # Time-series parameters
+  ts_method: "interpolate"  # ffill, bfill, interpolate
+  ts_interpolate_method: "linear"  # linear, polynomial, spline
+
+# Chatbot Settings
+chatbot:
+  # Persistence
+  save_format: "binary"  # binary, json
+  save_directory: "chatbot/saved_conversations"
+  
+  # Export
+  pdf_export: true
+  pdf_template: "default"
+  
+  # Conversation
+  max_history: 100  # Maximum conversation turns to store
+  timeout_minutes: 30  # Session timeout
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "healthml_toolkit.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Paths
+paths:
+  data_root: "data"
+  output_root: "outputs"
+  models_dir: "vision/models"
+  chatbot_saves: "chatbot/saved_conversations"
+  imputation_examples: "data_quality/examples"
