@@ -1,4 +1,4 @@
-# HealthML-Toolkit 🏥🤖
+# HealthML-Toolkit
 
 **An end-to-end Machine Learning toolkit for healthcare applications**: conversational AI, data quality management, and medical image analysis with explainable AI.
 
